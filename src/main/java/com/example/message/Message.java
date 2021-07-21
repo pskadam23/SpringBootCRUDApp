@@ -3,7 +3,7 @@ package com.example.message;
 import java.util.Objects;
 import javax.persistence.Entity;
 
-@Entity
+//@Entity
 public class Message {
 	
 	private Integer id;
