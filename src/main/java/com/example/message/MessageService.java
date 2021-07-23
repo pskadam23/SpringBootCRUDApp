@@ -11,9 +11,9 @@ public class MessageService {
 
 	private List<Message> messages = new ArrayList<>(
 			Arrays.asList(
-					new Message(1,"Hello world"),
-					new Message(2,"Sample text"),
-					new Message(3,"Demo app")
+					new Message("Hello world"),
+					new Message("Sample text"),
+					new Message("Demo app")
 					)
 			);
 	

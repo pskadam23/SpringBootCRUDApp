@@ -2,21 +2,22 @@ package com.example.message;
 
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
-//@Entity
+@Entity
 public class Message {
 	
-	private Integer id;
+	private @Id @GeneratedValue Long id;
 	private String text;
 	
 	Message() {}
 
-	Message(Integer id,String text) {
-		this.id = id;
+	Message(String text) {
 	    this.text = text;
 	  }
 
-	public Integer getId() {
+	public Long getId() {
 		return this.id;
 	}
 
@@ -25,7 +26,7 @@ public class Message {
 	}
 
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
@@ -41,7 +42,7 @@ public class Message {
 	    if (!(o instanceof Message))
 	      return false;
 	    Message message = (Message) o;
-	    return Objects.equals(this.id, message.id);
+	    return Objects.equals(this.id, message.id) && Objects.equals(this.text, message.text);
 	  }
 
 	  @Override
