@@ -21,42 +21,43 @@ public class MessageController {
 	  }
 
 
-	  // Aggregate root
-	  // tag::get-aggregate-root[]
 	  @GetMapping("/messages")
 	  List<Message> all() {
 	    return repository.findAll();
 	  }
-	  // end::get-aggregate-root[]
+
 
 	  @PostMapping("/messages")
 	  Message newMessage(@RequestBody Message newMessage) {
-//	  Message newMessage(@RequestBody String filePath) {
 		  String filePath = newMessage.getText();
 		  String newMessageText = ResourceReader.readFileToString(filePath);
-		  return repository.save(new Message(newMessageText));
+		  if (newMessageText.length() > 255 ) 
+			  throw new MessageLengthExceedsException();
+		  else
+			  return repository.save(new Message(newMessageText));
 	  }
 
-	  // Single item
 	  
 	  @GetMapping("/messages/{id}")
 	  Message one(@PathVariable Long id) {
-	    
 	    return repository.findById(id).orElseThrow(() -> new MessageNotFoundException(id));
 	  }
 
 	  @PutMapping("/messages/{id}")
 	  Message replaceMessage(@RequestBody Message newMessage, @PathVariable Long id) {
-	    
-	    return repository.findById(id)
+		  if (newMessage.getText().length() > 255)
+			  throw new MessageLengthExceedsException();
+		  else
+			  return repository.findById(id)
 	      .map(message -> {
 	    	  message.setText(newMessage.getText());
 	        return repository.save(message);
 	      })
-	      .orElseGet(() -> {
-	    	  newMessage.setId(id);
-	        return repository.save(newMessage);
-	      });
+	      .orElseThrow(() -> new MessageNotFoundException(id));
+//	      .orElseGet(() -> {
+//	    	  newMessage.setId(id);
+//	        return repository.save(newMessage);
+//	      });
 	  }
 
 	  @DeleteMapping("/messages/{id}")

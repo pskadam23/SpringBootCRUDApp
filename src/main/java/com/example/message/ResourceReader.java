@@ -10,8 +10,12 @@ import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.Resource;
 import org.springframework.util.FileCopyUtils;
 
-
+/*
+ * This class reads data from a text file.
+ */
 public class ResourceReader {
+	
+	//This methods reads data from the input resource, in this case a text file, into a string variable and returns it
 	private static String asString(Resource resource) {
         try (Reader reader = new InputStreamReader(resource.getInputStream(), StandardCharsets.UTF_8)) {
             return FileCopyUtils.copyToString(reader);
@@ -20,8 +24,8 @@ public class ResourceReader {
         }
     }
 	
+	// This method loads the text file.
 	public static String readFileToString(String path) {
-//	    ResourceLoader resourceLoader = new DefaultResourceLoader();
 	    Resource resource = new FileSystemResource(path);
 	    return asString(resource);
 	}
