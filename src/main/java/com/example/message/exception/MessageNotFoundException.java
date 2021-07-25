@@ -1,4 +1,4 @@
-package com.example.message;
+package com.example.message.exception;
 
 public class MessageNotFoundException extends RuntimeException {
 
@@ -7,7 +7,7 @@ public class MessageNotFoundException extends RuntimeException {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	MessageNotFoundException(Long id) {
-	    super("Could not find message " + id);
+	public MessageNotFoundException(Long id) {
+	    super("Could not find message with Id = " + id);
 	}
 }

@@ -1,4 +1,4 @@
-package com.example.message;
+package com.example.message.entity;
 
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -13,7 +13,7 @@ public class Message {
 	
 	Message() {}
 
-	Message(String text) {
+	public Message(String text) {
 	    this.text = text;
 	  }
 

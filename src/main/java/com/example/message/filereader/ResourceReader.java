@@ -1,4 +1,4 @@
-package com.example.message;
+package com.example.message.filereader;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

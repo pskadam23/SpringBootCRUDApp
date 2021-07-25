@@ -1,4 +1,4 @@
-package com.example.message;
+package com.example.message.exception;
 
 public class MessageLengthExceedsException extends RuntimeException {
 	
@@ -7,7 +7,7 @@ public class MessageLengthExceedsException extends RuntimeException {
 	 */	
 	private static final long serialVersionUID = 1L;
 
-	MessageLengthExceedsException() {
+	public MessageLengthExceedsException() {
 	    super("String length exceeds limit of 255 characters for given message");
 	}
 

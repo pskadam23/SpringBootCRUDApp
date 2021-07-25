@@ -1,9 +1,15 @@
-package com.example.message;
+package com.example.message.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.example.message.entity.Message;
+import com.example.message.exception.MessageLengthExceedsException;
+import com.example.message.exception.MessageNotFoundException;
+import com.example.message.filereader.ResourceReader;
+import com.example.message.repository.MessageRepository;
 
 @Service
 public class MessageService {
@@ -15,15 +21,15 @@ public class MessageService {
 	    this.repository = repository;
 	}
 	
-	List<Message> all() {
+	public List<Message> all() {
 	    return repository.findAll();
 	}
 	
-	Message findMessagebyId(Long id) {
+	public Message findMessagebyId(Long id) {
 		return repository.findById(id).orElseThrow(() -> new MessageNotFoundException(id));
 	}
 	
-	Message newMessage(Message newMessage) {
+	public Message newMessage(Message newMessage) {
 		String filePath = newMessage.getText();
 		String newMessageText = ResourceReader.readFileToString(filePath);
 		if (newMessageText.length() > 255 ) 
@@ -32,7 +38,7 @@ public class MessageService {
 			return repository.save(new Message(newMessageText));
 	}
 
-	Message replaceMessage(Message newMessage,Long id) {
+	public Message replaceMessage(Message newMessage,Long id) {
 		if (newMessage.getText().length() > 255)
 			throw new MessageLengthExceedsException();
 		else
@@ -44,7 +50,7 @@ public class MessageService {
 					.orElseThrow(() -> new MessageNotFoundException(id));
 	}
 
-	void deleteMessage(Long id) {
+	public void deleteMessage(Long id) {
 		repository.deleteById(id);
 	}	
 }
